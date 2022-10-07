@@ -225,4 +225,5 @@ def update_figure(station, years, show_standard, standard):
         
     return fig, fig2, F"number of measurements > {standard} ug/m3 (%)", pivot_t.to_dict('records')
 
-app.run_server(debug=True, use_reloader=False)
+if __name__ == '__main__':
+    app.run_server(debug=True)
