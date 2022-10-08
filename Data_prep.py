@@ -42,3 +42,5 @@ def make_dataframe(stations=["35T","36T","37T"], years=[2011,2012,2013,2014,2015
     df.insert(3, 'nth', df.pop('nth'))
 
     return df
+
+make_dataframe().to_excel("pm25_2011_2020.xlsx")

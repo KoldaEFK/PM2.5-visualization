@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import dash_daq as daq
 import dash_bootstrap_components as dbc
 
-from Data_prep import make_dataframe, nth_day_to_date
+from Data_prep import nth_day_to_date
 
 magma = px.colors.sequential.Magma
 
@@ -33,7 +33,8 @@ month_dict = {
 years = [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]
 stations = ["35T","36T","37T"]
 
-df = make_dataframe(stations = stations, years = years)
+df = pd.read_excel("pm25_2011_2020.xlsx") #importing the dataframe with PM2.5 for all years and all stations
+df = df.drop(["Unnamed: 0"], axis=1)
 
 #COLOR DISCRETE MAP
 color_discrete_map = dict(zip([2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021], [px.colors.qualitative.Vivid[n] for n in range(11)]))
