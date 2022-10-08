@@ -18,7 +18,7 @@ def nth_day_to_date(nth, year, format='%Y-%m-%d'):
 def make_dataframe(stations=["35T","36T","37T"], years=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]):
     dfs = []
     for year in years:
-        df = pd.read_excel(F"yearly_data\pm25_2011_2020\PM2.5\PM2.5({year}).xlsx")
+        df = pd.read_excel(F"yearly_data\pm25_2011_2020\PM2.5({year}).xlsx")
         df.columns = [col_name.strip() for col_name in df.columns] #some column names have spaces around
         
         for st in stations: #for each year we want all stations that were specified above
