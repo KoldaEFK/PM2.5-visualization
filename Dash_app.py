@@ -30,9 +30,6 @@ month_dict = {
     }
 
 #CREATE A BASE DATAFRAME df
-years = [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]
-stations = ["35T","36T","37T"]
-
 df = pd.read_excel("pm25_2011_2020.xlsx") #importing the dataframe with PM2.5 for all years and all stations
 df = df.drop(["Unnamed: 0"], axis=1)
 

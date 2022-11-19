@@ -15,16 +15,11 @@ def nth_day_to_date(nth, year, format='%Y-%m-%d'):
     return (start + dt.timedelta(days=nth-1))
 
 #CREATE A BASE DATAFRAME df
-def make_dataframe(stations=["35T","36T","37T"], years=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]):
+def make_dataframe(years=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]):
     dfs = []
     for year in years:
         df = pd.read_excel(F"yearly_data\pm25_2011_2020\PM2.5({year}).xlsx")
-        df.columns = [col_name.strip() for col_name in df.columns] #some column names have spaces around
-        
-        for st in stations: #for each year we want all stations that were specified above
-            if st not in df.columns:
-                df[st] = np.nan  
-                
+        df.columns = [col_name.strip() for col_name in df.columns] #some column names have spaces around     
         if year%4 == 0: #is leap year
             df = df[:366]
         else:
@@ -43,4 +38,4 @@ def make_dataframe(stations=["35T","36T","37T"], years=[2011,2012,2013,2014,2015
 
     return df
 
-#make_dataframe().to_excel("pm25_2011_2020.xlsx")
+make_dataframe().to_excel("pm25_2011_2020_test.xlsx")
