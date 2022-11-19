@@ -49,7 +49,19 @@ controls = html.Div([
         dcc.Dropdown(id="station",
             options=[{"label": "35T", "value": "35T"},
                     {"label": "36T", "value": "36T"},
-                    {"label": "37T", "value": "37T"}],
+                    {"label": "37T", "value": "37T"},
+                    {"label": "38T", "value": "38T"},
+                    {"label": "39T", "value": "39T"},
+                    {"label": "40T", "value": "40T"},
+                    {"label": "57T", "value": "57T"},
+                    {"label": "58T", "value": "58T"},
+                    {"label": "67T", "value": "67T"},
+                    {"label": "68T", "value": "68T"},
+                    {"label": "69T", "value": "69T"},
+                    {"label": "70T", "value": "70T"},
+                    {"label": "73T", "value": "73T"},
+                    {"label": "75T", "value": "75T"},
+                    {"label": "76T", "value": "76T"}],
             multi=False,
             style={'color': 'black'},
             value="36T"),
@@ -57,7 +69,7 @@ controls = html.Div([
     html.Div(
         dcc.Checklist(id='checklist',
             options = [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
-            value = [2014,2020],
+            value = [2014,2015,2016,2017,2018,2019,2020,2021],
             inline=True),
         className="p-1 bg-dark border"),
     html.Div(
@@ -133,10 +145,11 @@ def update_figure(station, years, show_standard, standard):
     df_c['Date'] = df['Date'].apply(lambda x: x.strftime('%d-%m-%Y')) #I need this column for custom data
 
     #TABLE
-    pivot_t = df_.groupby(["Year", "Month"])[station].apply(lambda x: x[x > standard].count()/x.count()).to_frame() #count only if the column value > stan
+    #pivot_t = df_.groupby(["Year", "Month"])[station].apply(lambda x: x[x > standard].count()/x.count()).to_frame() #count only if the column value > stan
+    pivot_t = df_.groupby(["Year", "Month"])[station].mean().to_frame()
     pivot_t = pivot_t.unstack()
     pivot_t.columns = [c[1] for c in pivot_t.columns]
-    pivot_t = pivot_t.applymap(lambda x: x*100)
+    #pivot_t = pivot_t.applymap(lambda x: x*100)
     pivot_t = pivot_t.applymap(lambda x: round(x, 0))
     pivot_t = pivot_t.reset_index()
     pivot_t = pivot_t[pivot_t["Year"].isin(years)]
@@ -170,7 +183,7 @@ def update_figure(station, years, show_standard, standard):
         xaxis=dict(range=[0,366], title="Day in the year", tickvals = tickvals, ticktext = [nth_day_to_date(x, 2018).strftime('%d/%m') for x in tickvals ]),
         yaxis=dict(range=[0,270], title="ug/m3"),
         title=dict(text=F"PM2.5 at station {station} ", x=0.5))
-        return fig, fig2, F"number of measurements > {standard} ug/m3 (%)", pivot_t.to_dict('records')
+        return fig, fig2, "monthly average PM2.5 (ug/m3)", pivot_t.to_dict('records')
         
     #LINE GRAPH
     fig = px.line(df_c,
@@ -224,7 +237,7 @@ def update_figure(station, years, show_standard, standard):
                   x=0.5)
     )
         
-    return fig, fig2, F"number of measurements > {standard} ug/m3 (%)", pivot_t.to_dict('records')
+    return fig, fig2, "monthly average PM2.5 (ug/m3)", pivot_t.to_dict('records')
 
 if __name__ == '__main__':
     app.run_server(debug=True)
