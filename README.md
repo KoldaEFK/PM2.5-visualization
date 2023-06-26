@@ -5,7 +5,7 @@
 
 ## Project 
 - Simple web app for visualising the level of particulate matter (PM2.5), which is the most prominent component of air pollution in Northern Thailand
-- data were collected by monitoring stations in Northern Thailand and I accessed them at through my internship at the Environmental Science Research Center, Faculty of Science, Chiang Mai  (https://www.science.cmu.ac.th)
+- data were collected by monitoring stations in Northern Thailand and I accessed them at through the Environmental Science Research Center, Faculty of Science, Chiang Mai  (https://www.science.cmu.ac.th)
 
 ## Files & folders
 **Data_prep.py** - definition of several useful functions and data preprocessing (yearly_data -> PM25_11_2020.xlsx)
